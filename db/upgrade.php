@@ -69,5 +69,18 @@ function xmldb_local_msaccount_upgrade($oldversion) {
     // Moodle v2.7.0 release upgrade line.
     // Put any upgrade step following this.
 
+    // Moodle v3.1.0 release upgrade line.
+    // Put any upgrade step following this.
+    if ($oldversion < 2016062001) {
+        // Define table to be modified.
+        $table = new xmldb_table('msaccount_refresh_tokens');
+
+        // Rename the table to use the correct Moodle naming convention.
+        $dbman->rename_table($table, 'local_msaccount_refresh_tokens');
+
+        // Msaccount savepoint reached.
+        upgrade_plugin_savepoint(true, 2016062001, 'local', 'msaccount');
+    }
+
     return true;
 }
